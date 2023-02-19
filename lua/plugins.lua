@@ -8,7 +8,14 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   -- lsp支持
-  use({ "neovim/nvim-lspconfig", "williamboman/nvim-lsp-installer" })
+  use({
+      "neovim/nvim-lspconfig", 
+      "williamboman/nvim-lsp-installer",
+      config = function()
+          require ([[require('plug-config.lsp')]])
+      end,
+
+  })
   
   -- 模糊匹配工具
   use("junegunn/fzf")
@@ -19,8 +26,6 @@ return require('packer').startup(function(use)
   use("tpope/vim-repeat")
   use("tpope/vim-surround")
   use("tpope/vim-unimpaired")
-  -- Github copilot
-  use({ "github/copilot.vim" })
   -- 格式化代码
   use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
   use({ "rlue/vim-barbaric" })
@@ -43,7 +48,13 @@ return require('packer').startup(function(use)
   -- vsnip
   use("hrsh7th/cmp-vsnip")
   -- lsp美化
-  use("onsails/lspkind-nvim")
+	use {
+		'tami5/lspsaga.nvim',
+		config = function()
+			-- require('conf.lspsaga-conf')
+			require('lspsaga').setup{}
+		end
+	}
   --nvim美化
   ----moonfly is a dark charcoal theme for classic Vim & modern Neovim.
   use({
@@ -53,6 +64,29 @@ return require('packer').startup(function(use)
           require("plug-config.moonfly") 
       end,
   })
+  use {
+		'goolord/alpha-nvim',
+		requires = { 'kyazdani42/nvim-web-devicons' },
+		config = function ()
+			require'alpha'.setup(require'alpha.themes.startify'.config)
+		end
+	}
+  -- Comment plugin
+	use {
+		'numToStr/Comment.nvim',
+		config = function()
+			require('Comment').setup{}
+		end
+	}
+  use({
+		"NTBBloodbath/galaxyline.nvim",
+		-- your statusline
+		config = function()
+			require("galaxyline.themes.eviline")
+		end,
+		-- some optional icons
+		requires = { "kyazdani42/nvim-web-devicons", opt = true }
+	})
   --nvim-tree
   use {
       'nvim-tree/nvim-tree.lua',
