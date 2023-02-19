@@ -8,7 +8,7 @@ local conf_files = {
 }
 -- source all the  config files
 for _, name in ipairs(conf_files) do
-  local source_cmd = "source " .. " ."..[[/lua/plug-config/]]..name 
+  local source_cmd = "source " .. " "..vim.fn.stdpath("config")..[[/lua/plug-config/]]..name 
   vim.cmd(source_cmd)
 end
 
